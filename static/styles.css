@@ -59,5 +59,43 @@ footer {
     background-color: lightblue;
 }
 
+.link{
+  text-align: center;
+}
 
+.link a{
+  background-color: #324b72;
+  border-radius: 25px 50px 0px;
+  padding: 1ex 2ex;
+}
+
+h1{
+  text-align: center;
+}
+
+.url {
+  background-color: #324b72;
+  border-radius: 25px 25px;
+  padding:2ex;
+  margin: 1ex; 
+}
+
+.urls{
+  background-color: #FACC15;
+  border-radius: 10px;
+}
+
+.a{
+  text-align: center;
+}
+
+.a a{
+  background-color: #0062ff;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 1ex;
+  text-align: center;
+  text-decoration: none;
+  font-size: 200%;
+}
 /*# sourceMappingURL=styles.css.map */

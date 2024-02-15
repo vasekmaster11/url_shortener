@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{%block title%}Register{%endblock title%}
+
+{% block obsah %}
+
+<form method="post">
+    <table>
+        <tr>
+            <td>username:</td>
+            <td><input type="text" name="username"></td>
+        </tr>
+         <tr>
+            <td>password:</td>
+            <td><input type="text" name="password_0"></td>
+        </tr>
+        <tr>
+            <td>confirm password:</td>
+            <td><input type="text" name="password_1"></td>
+        </tr>
+        <tr>
+            <td><button>Register</button></td>
+        </tr>   
+    </table>
+</form>
+
+{% endblock obsah %}

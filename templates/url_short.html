@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{%block title%}Url Shortener{%endblock%}
+
+{% block obsah %}
+<form method="post">
+
+  <table>
+    <tr>
+      <td>url:</td>
+      <td><input type="text" name="url_long"></td>
+    </tr>
+      <td>short url:</td>
+      {% if url_short%}
+      <td>http://127.0.0.1:54321/{{url_short}}</td>
+      {% endif %}
+    <tr>
+      <td><button>Shorten</button></td>
+    </tr>
+
+  </table>
+
+{% for long_url, short_url in response %}
+<div class="urls">
+<p class="url">url: {{long_url}}</p>
+<p class="url">short url: http://127.0.0.1:54321/{{short_url}}</p>
+</div>
+{% endfor %}
+
+{% endblock obsah %}
