@@ -27,11 +27,14 @@ Nikdo není přihlášen.
   <p class="link"><a href="{{ url_for('base') }}">Home</a><a href="{{ url_for('login') }}">Login</a><a href="{{ url_for('register') }}">Register</a><a href="{{ url_for('url_short') }}">url shortener</a></p>
 </nav>
 
+{% for category, message in get_flashed_messages(with_categories=True) %}
+<p class="message {{ category }}">{{ message }}</p>
+{% endfor %}
+
 {% block obsah %}
 
-
 <h1>Url Shortener</h1>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=i3JAgcHxOVgwD2po" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 

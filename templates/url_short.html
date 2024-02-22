@@ -3,7 +3,7 @@
 {%block title%}Url Shortener{%endblock%}
 
 {% block obsah %}
-<form method="post">
+<form class="url_form" method="post">
 
   <table>
     <tr>
@@ -20,7 +20,7 @@
 
   </table>
 
-{% for long_url, short_url in response %}
+{% for long_url, short_url in response|reverse %}
 <div class="urls">
 <p class="url">url: {{long_url}}</p>
 <p class="url">short url: http://127.0.0.1:54321/{{short_url}}</p>

@@ -25,6 +25,12 @@ app.secret_key = b"x6\x87j@\xd3\x88\x0e8\xe8pM\x13\r\xafa\x8b\xdbp\x8a\x1f\xd41\
 
 slova = ("Super", "Perfekt", "Úža", "Flask")
 
+def url_s_gen():
+    x = ''
+    for i in range(6):
+        x=f'{x}{random.choice(string.ascii_letters + string.digits)}'
+    url_short = x
+    return url_short
 
 def prihlasit(function):
     @functools.wraps(function)
@@ -56,24 +62,27 @@ def url_short():
 @app.route("/url_short/", methods=['POST'])
 def url_short_post():
     url_long = request.form.get("url_long")
-    x = ''
-    for i in range(6):
-        x=f'{x}{random.choice(string.ascii_letters + string.digits)}'
-    url_short = x
+    response = []
     if url_long:
-        if 'user' not in session:
-            try:
-                with SQLite('data.sqlite') as cur:
-                        cur.execute('INSERT into url (long_url, short_url) VALUES(?, ?)',[url_long, url_short])
-                return render_template('url_short.html', url_short=url_short)
-            except IntegrityError:
-                return render_template('url_short.html')
-        else:    
-            with SQLite('data.sqlite') as cur:
-                u_id = cur.execute('SELECT id FROM user WHERE username = ?',[session['user']]).fetchone()[0]
-                cur.execute('INSERT into url (long_url, short_url, u_id) VALUES(?, ?, ?)',[url_long, url_short, u_id])
-                response = cur.execute('SELECT long_url, short_url FROM url WHERE u_id = ?',[u_id]).fetchall()
-            return render_template('url_short.html', url_short=url_short, response=response)
+        while True:
+            url_short = url_s_gen()
+            if 'user' not in session:
+                    try:
+                        with SQLite('data.sqlite') as cur:
+                                cur.execute('INSERT into url (long_url, short_url) VALUES(?, ?)',[url_long, url_short])
+                        break
+                    except IntegrityError:
+                        pass
+            else:
+                try:    
+                    with SQLite('data.sqlite') as cur:
+                        u_id = cur.execute('SELECT id FROM user WHERE username = ?',[session['user']]).fetchone()[0]
+                        cur.execute('INSERT into url (long_url, short_url, u_id) VALUES(?, ?, ?)',[url_long, url_short, u_id])
+                        response = cur.execute('SELECT long_url, short_url FROM url WHERE u_id = ?',[u_id]).fetchall()
+                        break
+                except IntegrityError:
+                    pass
+        return render_template('url_short.html', url_short=url_short, response=response)
     else:
         return render_template('url_short.html')
 
@@ -139,4 +148,7 @@ def register_post():
 
 @app.route('/register', methods=['GET'])
 def register():
-    return render_template("register.html")
+    if 'user' not in session:
+        return render_template("register.html")
+    else:
+        return render_template('logout.html')

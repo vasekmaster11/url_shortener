@@ -65,8 +65,9 @@ footer {
 
 .link a{
   background-color: #324b72;
-  border-radius: 25px 50px 0px;
+  border-radius: 25px 50px 25px;
   padding: 1ex 2ex;
+  color: white;
 }
 
 h1{
@@ -74,16 +75,18 @@ h1{
 }
 
 .url {
-  background-color: #324b72;
+  background-color: #000000;
   border-radius: 25px 25px;
   padding:2ex;
   margin: 1ex; 
+  color: white;
 }
 
 .urls{
   background-color: #FACC15;
   border-radius: 10px;
   margin: 3ex;
+  padding: 0.25ex;
 }
 
 .a{
@@ -99,4 +102,42 @@ h1{
   text-decoration: none;
   font-size: 200%;
 }
+
+.message {
+  border-style: solid;
+  border-color: rgb(143, 117, 0);
+  border-width: 2px;
+  font-size: 200%;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 1ex;
+  border-radius: 10px;
+}
+
+.success{
+  background-color: green;
+}
+
+.error{
+  background-color: red;
+}
+
+.url_form{
+  background-color: rgb(1, 206, 29);
+  border-style: solid;
+  border-color: rgb(0, 0, 0);
+  border-width: 2px;
+  border-radius: 10px;
+}
+
+.log{
+  background-color: aqua;
+  border-style: solid;
+  border-color: rgb(17, 0, 255);
+  border-width: 2px;
+  border-radius: 10px;
+}
+
 /*# sourceMappingURL=styles.css.map */
