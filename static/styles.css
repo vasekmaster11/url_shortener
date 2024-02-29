@@ -143,4 +143,10 @@ h1{
 .usr{
   background-color: aqua;
 }
+
+.hidden {
+  color: rgb(255, 255, 255);
+  text-decoration: none; 
+}
+
 /*# sourceMappingURL=styles.css.map */

@@ -82,9 +82,12 @@ def url_short_post():
                         break
                 except IntegrityError:
                     pass
-        return render_template('url_short.html', url_short=url_short, response=response)
     else:
-        return render_template('url_short.html')
+        with SQLite('data.sqlite') as cur:
+            u_id = cur.execute('SELECT id FROM user WHERE username = ?',[session['user']]).fetchone()[0]
+            response = cur.execute('SELECT long_url, short_url FROM url WHERE u_id = ?',[u_id]).fetchall()
+    return render_template('url_short.html', response=response)
+
 
 
 @app.route('/<short_url>')

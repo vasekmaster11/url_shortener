@@ -22,8 +22,8 @@
 
 {% for long_url, short_url in response|reverse %}
 <div class="urls">
-<p class="url">url: {{long_url}}</p>
-<p class="url">short url: http://127.0.0.1:54321/{{short_url}}</p>
+<p class="url">url: <a class="hidden" href="{{long_url}}">{{long_url}}</a></p>
+<p class="url">short url: <a class="hidden" href="http://127.0.0.1:54321/{{short_url}}">http://127.0.0.1:54321/{{short_url}}</a></p>
 </div>
 {% endfor %}
 
