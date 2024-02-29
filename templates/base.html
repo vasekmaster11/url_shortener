@@ -17,10 +17,10 @@
 <body>
 <p class="usr">
 {% if 'user' in session %}
-Uživatel: {{ session['user'] }}. 
+User: {{ session['user'] }}. 
 <a href="{{ url_for('logout') }}">Logout</a>
 {% else %}
-Nikdo není přihlášen.
+Nobody is loged in.
 {% endif %}
 </p>
 <nav>
