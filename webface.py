@@ -91,7 +91,7 @@ def url_short_post():
 
 
 @app.route('/<short_url>')
-def jmp(short_url) :
+def jmp(short_url):
     with SQLite('data.sqlite') as cur:
         url = cur.execute('SELECT long_url FROM url WHERE short_url = ?',[short_url]).fetchone()[0]
     return redirect(url)
