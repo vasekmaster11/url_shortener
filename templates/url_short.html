@@ -11,8 +11,8 @@
       <td><input type="text" name="url_long"></td>
     </tr>
       <td>short url:</td>
-      {% if url_short%}
-      <td>http://127.0.0.1:5000/{{url_short}}</td>
+      {% if short_url%}
+      <td>{{url_for('base')}}{{short_url}}</td>
       {% endif %}
     <tr>
       <td><button>Shorten</button></td>
@@ -23,7 +23,7 @@
 {% for long_url, short_url in response|reverse %}
 <div class="urls">
 <p class="url">url: <a class="hidden" href="{{long_url}}">{{long_url}}</a></p>
-<p class="url">short url: <a class="hidden" href="http://127.0.0.1:5000/{{short_url}}">http://127.0.0.1:5000/{{short_url}}</a></p>
+<p class="url">short url: <a class="hidden" href="{{short_url}}">{{short_url}}</a></p>
 </div>
 {% endfor %}
 

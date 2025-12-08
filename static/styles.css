@@ -1,5 +1,5 @@
 body {
-  background-color: #eeeeee;
+  background-color: darkgray;
   padding-left: 1em;
   padding-right: 1em;
   margin-left: 90px;
@@ -70,7 +70,7 @@ footer {
   color: white;
 }
 
-h1{
+h1, h2{
   text-align: center;
 }
 
@@ -147,6 +147,22 @@ h1{
 .hidden {
   color: rgb(255, 255, 255);
   text-decoration: none; 
+}
+
+.centered{
+  background-color: #FACC15;
+  border-radius: 100px;
+  font-size: 200%;
+}
+
+.centered form{
+  display:  grid;
+}
+
+.centered form input{
+  margin: 0% 40% 5% 40%;
+  width: 20%;
+  text-align: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

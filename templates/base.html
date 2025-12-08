@@ -1,43 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="cs">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
 
-  <title>{%block title%}Home{%endblock%}</title>
+    <title>{%block title%}Home{%endblock%}</title>
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='favico.png') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favico.png') }}"
+    />
 
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
 
-</head>
+  <body>
+    <p class="usr">
+      {% if 'user' in session %} User: {{ session['user'] }}.
+      <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %} Nobody is loged in. {% endif %}
+    </p>
+    <nav>
+      <p class="link">
+        <a href="{{ url_for('base') }}">Home</a
+        ><a href="{{ url_for('login') }}">Login</a
+        ><a href="{{ url_for('register') }}">Register</a
+        ><a href="{{ url_for('url_short') }}">url shortener</a>
+      </p>
+    </nav>
 
-<body>
-<p class="usr">
-{% if 'user' in session %}
-User: {{ session['user'] }}. 
-<a href="{{ url_for('logout') }}">Logout</a>
-{% else %}
-Nobody is loged in.
-{% endif %}
-</p>
-<nav>
-  <p class="link"><a href="{{ url_for('base') }}">Home</a><a href="{{ url_for('login') }}">Login</a><a href="{{ url_for('register') }}">Register</a><a href="{{ url_for('url_short') }}">url shortener</a></p>
-</nav>
+    {% for category, message in get_flashed_messages(with_categories=True) %}
+    <p class="message {{ category }}">{{ message }}</p>
+    {% endfor %} {% block obsah %}
 
-{% for category, message in get_flashed_messages(with_categories=True) %}
-<p class="message {{ category }}">{{ message }}</p>
-{% endfor %}
+    <div class="centered">
+      <h1>Url Shortener</h1>
+      <form method="post">
+        <h2>Enter short url</h2>
+        <input class="centered" type="text" name="url_short" maxlength="6">
+      </form>
+    </div>
 
-{% block obsah %}
-
-<h1>Url Shortener</h1>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=i3JAgcHxOVgwD2po" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-
-{% endblock obsah %}
-
-</body>
+    {% endblock obsah %}
+  </body>
 </html>

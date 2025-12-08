@@ -16,21 +16,19 @@ import datetime
 from sqlitewrap import SQLite
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlite3 import IntegrityError
-# from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = b"totoj e zceLa n@@@hodny retezec nejlep os.urandom(24)"
 app.secret_key = b"x6\x87j@\xd3\x88\x0e8\xe8pM\x13\r\xafa\x8b\xdbp\x8a\x1f\xd41\xb8"
 
 
-slova = ("Super", "Perfekt", "Úža", "Flask")
-
 def url_s_gen():
     x = ''
     for i in range(6):
-        x=f'{x}{random.choice(string.ascii_letters + string.digits)}'
+        x = f'{x}{random.choice(string.ascii_letters + string.digits)}'
     url_short = x
     return url_short
+
 
 def prihlasit(function):
     @functools.wraps(function)
@@ -48,6 +46,23 @@ def base():
     return render_template("base.html")
 
 
+@app.route("/", methods=["POST"])
+def base_post():
+    print("f")
+    url=""
+    short_url=request.form.get("url_short")
+    print(short_url)
+    if short_url:
+        with SQLite('data.sqlite') as cur:
+            try:
+                url = cur.execute('SELECT long_url FROM url WHERE short_url = ?',[short_url]).fetchone()[0]
+            except TypeError:
+                flash(f'address {short_url} does not exist', 'error')
+            if url:
+                return redirect(url)
+    return render_template('base.html')
+
+
 @app.route('/url_short', methods=['GET'])
 def url_short():
     if 'user' in session:
@@ -61,6 +76,8 @@ def url_short():
 
 @app.route("/url_short/", methods=['POST'])
 def url_short_post():
+    url_long = ""
+    url_short=""
     url_long = request.form.get("url_long")
     response = []
     if url_long:
@@ -79,14 +96,15 @@ def url_short_post():
                         u_id = cur.execute('SELECT id FROM user WHERE username = ?',[session['user']]).fetchone()[0]
                         cur.execute('INSERT into url (long_url, short_url, u_id) VALUES(?, ?, ?)',[url_long, url_short, u_id])
                         response = cur.execute('SELECT long_url, short_url FROM url WHERE u_id = ?',[u_id]).fetchall()
-                        break
+                    break
                 except IntegrityError:
                     pass
     else:
-        with SQLite('data.sqlite') as cur:
-            u_id = cur.execute('SELECT id FROM user WHERE username = ?',[session['user']]).fetchone()[0]
-            response = cur.execute('SELECT long_url, short_url FROM url WHERE u_id = ?',[u_id]).fetchall()
-    return render_template('url_short.html', response=response)
+        if 'user' in session:
+            with SQLite('data.sqlite') as cur:
+                u_id = cur.execute('SELECT id FROM user WHERE username = ?',[session['user']]).fetchone()[0]
+                response = cur.execute('SELECT long_url, short_url FROM url WHERE u_id = ?',[u_id]).fetchall()
+    return render_template('url_short.html', response=response, short_url=url_short)
 
 
 
