@@ -142,6 +142,10 @@ h1, h2{
 
 .usr{
   background-color: aqua;
+  border-radius: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .hidden {
@@ -160,8 +164,8 @@ h1, h2{
 }
 
 .centered form input{
-  margin: 0% 40% 5% 40%;
-  width: 20%;
+  margin: 0% 20% 5% 20%;
+  width: 60%;
   text-align: center;
 }
 

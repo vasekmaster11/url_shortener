@@ -12,8 +12,14 @@
     </tr>
       <td>short url:</td>
       {% if short_url%}
-      <td>{{url_for('base')}}{{short_url}}</td>
+      <td>{{url_for('base', _external=True)}}{{short_url}}</td>
       {% endif %}
+      <tr>
+      <td>code:</td>
+            {% if short_url%}
+      <td>{{short_url}}</td>
+      {% endif %}
+      </tr>
     <tr>
       <td><button>Shorten</button></td>
     </tr>
@@ -23,7 +29,8 @@
 {% for long_url, short_url in response|reverse %}
 <div class="urls">
 <p class="url">url: <a class="hidden" href="{{long_url}}">{{long_url}}</a></p>
-<p class="url">short url: <a class="hidden" href="{{short_url}}">{{short_url}}</a></p>
+<p class="url">short url: <a class="hidden" href="{{url_for('base', _external=True)}}{{short_url}}">{{url_for('base', _external=True)}}{{short_url}}</a></p>
+<p class="url">code: <a class="hidden" href="{{url_for('base', _external=True)}}{{short_url}}">{{short_url}}</a></p>
 </div>
 {% endfor %}
 

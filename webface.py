@@ -11,6 +11,7 @@ from flask import (
 )
 import functools
 import string
+import re
 import random
 import datetime
 from sqlitewrap import SQLite
@@ -18,7 +19,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlite3 import IntegrityError
 
 app = Flask(__name__)
-app.secret_key = b"totoj e zceLa n@@@hodny retezec nejlep os.urandom(24)"
+if __name__ == '__main__':
+    app.run(debug=True, port=4444) 
 app.secret_key = b"x6\x87j@\xd3\x88\x0e8\xe8pM\x13\r\xafa\x8b\xdbp\x8a\x1f\xd41\xb8"
 
 
@@ -48,11 +50,11 @@ def base():
 
 @app.route("/", methods=["POST"])
 def base_post():
-    print("f")
     url=""
     short_url=request.form.get("url_short")
-    print(short_url)
     if short_url:
+        if re.fullmatch(r"https?://(\S*/)*",short_url):
+            return redirect(short_url)
         with SQLite('data.sqlite') as cur:
             try:
                 url = cur.execute('SELECT long_url FROM url WHERE short_url = ?',[short_url]).fetchone()[0]
